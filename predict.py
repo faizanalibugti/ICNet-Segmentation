@@ -47,9 +47,12 @@ im1 = cv2.imread('./cityscapes1.png')
 if im1.shape != cfg.INFER_SIZE:
     im1 = cv2.resize(im1, (cfg.INFER_SIZE[1], cfg.INFER_SIZE[0]))
 
+start = time.time()
 results1 = net.predict(im1)
 overlap_results1 = 0.5 * im1 + 0.5 * results1[0]
 vis_im1 = np.concatenate([im1/255.0, results1[0]/255.0, overlap_results1/255.0], axis=1)
+end = time.time() - start
+print('Inference time {} seconds'.format(end))
 
 plt.figure(figsize=(20, 15))
 plt.imshow(vis_im1)
