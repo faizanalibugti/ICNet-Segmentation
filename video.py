@@ -28,7 +28,7 @@ class InferenceConfig(Config):
     model_weight = './model/cityscapes/icnet_cityscapes_trainval_90k.npy'
     
     # Define default input size here
-    INFER_SIZE = (1024, 2048, 3)
+    INFER_SIZE = (512, 1024, 3)
 
 cfg = InferenceConfig(dataset, is_training=False, filter_scale=filter_scale)
 cfg.display()
