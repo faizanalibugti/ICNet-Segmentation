@@ -1,4 +1,3 @@
-
 import argparse
 import tensorflow as tf
 import numpy as np
@@ -28,7 +27,7 @@ class InferenceConfig(Config):
     model_weight = './model/cityscapes/icnet_cityscapes_trainval_90k.npy'
     
     # Define default input size here
-    INFER_SIZE = (512, 1024, 3)
+    INFER_SIZE = (256, 512, 3)
 
 cfg = InferenceConfig(dataset, is_training=False, filter_scale=filter_scale)
 cfg.display()

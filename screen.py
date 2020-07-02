@@ -4,7 +4,7 @@ import time
 import cv2
 import mss
 import numpy
-import scipy.misc
+import matplotlib.pyplot as plt
 
 from tqdm import trange
 from utils.config import Config
@@ -28,7 +28,7 @@ class InferenceConfig(Config):
     model_weight = './model/cityscapes/icnet_cityscapes_trainval_90k.npy'
     
     # Define default input size here
-    INFER_SIZE = (512, 1024, 3)
+    INFER_SIZE = (256, 512, 3)
 
 cfg = InferenceConfig(dataset, is_training=False, filter_scale=filter_scale)
 cfg.display()
@@ -54,9 +54,8 @@ with mss.mss() as sct:
         screen = numpy.flip(screen[:, :, :3], 2)
         capture = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
 
-        image = scipy.misc.imresize(screen, [512, 1024]) / 255.0
+        image = cv2.resize(screen, (cfg.INFER_SIZE[1], cfg.INFER_SIZE[0]))
         results1 = net.predict(image)
-        #results1 = results1[0]/255.0
         overlap_results1 = (0.5 * image + 0.5 * results1[0])
         overlap_results1 = overlap_results1/255.0
 
